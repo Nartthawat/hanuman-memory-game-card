@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+
+    <title>เกมจับคู่เครื่องแต่งกายหนุมาน</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="game.js" defer></script>
+</head>
+
+<body>
+    <main class="page">
+
+        <header class="page-header">
+            <div class="header-decoration">✦</div>
+            <p class="eyebrow">เกมเรียนรู้ศิลปวัฒนธรรมไทย</p>
+            <h1>เกมจับคู่เครื่องแต่งกายหนุมาน</h1>
+            <p class="subtitle">จดจำเครื่องแต่งกาย แล้วจับคู่ตามลำดับให้ถูกต้อง</p>
+        </header>
+
+        <section class="game-container">
+
+            <div class="challenge-header">
+                <div class="question-area">
+                    <p class="section-label" id="round-label">รอบที่ 1</p>
+                    <h2 id="round-title">หนุมานควรสวมเครื่องประดับชิ้นใดก่อนและหลัง?</h2>
+                </div>
+
+                <div class="timer-box">
+                    <span class="timer-label">เวลาที่เหลือ</span>
+                    <span id="timer">90</span>
+                </div>
+            </div>
+
+            <div class="instruction-panel">
+                <div class="instruction-icon">✧</div>
+
+                <div class="instruction-content">
+                    <p class="instruction-heading" id="status">เตรียมตัวให้พร้อม</p>
+                    <p id="message">จดจำตำแหน่งไพ่ แล้วจับคู่ตามลำดับที่ถูกต้อง</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-label">จับคู่แล้ว</span>
+                    <span class="stat-value">
+                        <span id="matched">0</span>/5
+                    </span>
+                </div>
+
+                <div class="stat">
+                    <span class="stat-label">คะแนน</span>
+                    <span class="stat-value" id="score">0</span>
+                </div>
+
+                <div class="stat">
+                    <span class="stat-label">จำนวนครั้งที่ผิด</span>
+                    <span class="stat-value" id="mistakes">0</span>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-label">
+                    <span>ความคืบหน้า</span>
+                    <span id="progress-text">0%</span>
+                </div>
+
+                <div class="progress-track">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div
+                id="game-grid"
+                class="grid"
+                aria-label="ตารางไพ่จับคู่"
+            ></div>
+
+            <div class="game-footer">
+                <p id="game-hint">
+                    จับคู่เครื่องแต่งกายให้ถูกต้องตามลำดับ
+                </p>
+
+                <div class="game-buttons">
+                    <button
+                        id="restart-button"
+                        class="button button-secondary"
+                        type="button"
+                    >
+                        เริ่มใหม่
+                    </button>
+
+                    <button
+                        id="start-button"
+                        class="button button-primary"
+                        type="button"
+                    >
+                        เริ่มเกม
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <footer class="page-footer">
+            <span>เกมจับคู่เครื่องแต่งกายหนุมาน</span>
+            <span>✦</span>
+            <span>ศิลปวัฒนธรรมไทย</span>
+        </footer>
+
+    </main>
+
+    <!-- หน้าต่างเริ่มเกม -->
+    <div id="intro-modal" class="modal visible">
+        <div class="modal-content">
+
+            <p class="modal-eyebrow">พร้อมเริ่มเกมหรือยัง?</p>
+
+            <h2>เกมจับคู่เครื่องแต่งกาย</h2>
+
+            <p>
+                จดจำตำแหน่งไพ่หลังจากไพ่สลับตำแหน่ง
+                จากนั้นจับคู่เครื่องแต่งกายให้ถูกต้องตามลำดับ
+            </p>
+
+            <div class="rules">
+
+                <div class="rule">
+                    <span class="rule-number">01</span>
+                    <span>สังเกตการสลับตำแหน่งของไพ่</span>
+                </div>
+
+                <div class="rule">
+                    <span class="rule-number">02</span>
+                    <span>จดจำรูปภาพภายในเวลาที่กำหนด</span>
+                </div>
+
+                <div class="rule">
+                    <span class="rule-number">03</span>
+                    <span>จับคู่เครื่องแต่งกายตามลำดับให้ถูกต้อง</span>
+                </div>
+
+                <div class="rule">
+                    <span class="rule-number">04</span>
+                    <span>หากจับคู่ผิด จะต้องเริ่มรอบใหม่</span>
+                </div>
+
+            </div>
+
+            <button
+                id="modal-start-button"
+                class="button button-primary button-wide"
+                type="button"
+            >
+                เริ่มเกม
+            </button>
+
+        </div>
+    </div>
+
+    <!-- หน้าต่างสรุปผล -->
+    <div id="results-modal" class="modal">
+        <div class="modal-content">
+
+            <p class="modal-eyebrow" id="result-eyebrow">
+                จบเกม
+            </p>
+
+            <h2 id="result-title">ยินดีด้วย!</h2>
+
+            <p id="result-message">
+                คุณทำภารกิจสำเร็จแล้ว
+            </p>
+
+            <div class="result-stats">
+
+                <div>
+                    <span class="result-label">คะแนน</span>
+                    <strong id="final-score">0</strong>
+                </div>
+
+                <div>
+                    <span class="result-label">จำนวนครั้งที่ผิด</span>
+                    <strong id="final-mistakes">0</strong>
+                </div>
+
+                <div>
+                    <span class="result-label">เวลาเหลือ</span>
+                    <strong id="final-time">0</strong>
+                </div>
+
+            </div>
+
+            <button
+                id="next-round-button"
+                class="button button-primary button-wide"
+                type="button"
+            >
+                รอบถัดไป
+            </button>
+
+            <button
+                id="play-again-button"
+                class="button button-secondary button-wide"
+                type="button"
+            >
+                เล่นอีกครั้ง
+            </button>
+
+        </div>
+    </div>
+
+</body>
+</html>
