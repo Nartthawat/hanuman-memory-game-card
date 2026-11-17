@@ -79,6 +79,8 @@ function scheduleTimerTick() {
 
 function startTimer() {
     clearInterval(timerInterval);
+    timerInterval = null;
+
     stopTimerSounds();
 
     remainingTime = GAME_SECONDS;
@@ -99,12 +101,26 @@ function startTimer() {
         updateStats();
 
         if (remainingTime <= 0) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            stopTimerSounds();
+            remainingTime = 0;
+            updateStats();
+
+            stopTimer();
             endGame(false);
         }
     }, 1000);
+}
+
+function applyTimePenalty(seconds = WRONG_TIME_PENALTY) {
+    if (!gameStarted) return;
+
+    remainingTime = Math.max(0, remainingTime - seconds);
+
+    updateStats();
+
+    if (remainingTime <= 0) {
+        stopTimer();
+        endGame(false);
+    }
 }
 
 function stopTimer() {

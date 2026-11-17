@@ -173,7 +173,7 @@ function handleCorrectAnswer(session) {
     firstCard.classList.add("matched");
     secondCard.classList.add("matched");
 
-    score++;
+    score += CORRECT_SCORE_REWARD;
     matchedPairs++;
 
     selectedCards = [];
@@ -201,7 +201,8 @@ async function handleWrongAnswer(session) {
     const [firstCard, secondCard] = selectedCards;
 
     mistakes++;
-    score = Math.max(0, score - 1);
+
+    score = Math.max(0, score - WRONG_SCORE_PENALTY);
 
     firstCard.classList.add("wrong");
     secondCard.classList.add("wrong");
@@ -210,7 +211,11 @@ async function handleWrongAnswer(session) {
 
     updateStats();
 
-    setStatus("ยังไม่ถูกต้อง ลองจับคู่ใหม่อีกครั้ง");
+    setStatus("จับคู่ผิด! เสียคะแนนและเวลา 5 วินาที");
+
+    applyTimePenalty();
+
+    if (!gameStarted) return;
 
     await wait(900);
 
@@ -220,6 +225,11 @@ async function handleWrongAnswer(session) {
     secondCard.classList.remove("flipped", "wrong");
 
     selectedCards = [];
+
+    if (mistakes >= MAX_MISTAKES) {
+        endGame(false, "mistakes");
+        return;
+    }
 
     inputLocked = false;
 }

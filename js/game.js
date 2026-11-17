@@ -125,7 +125,7 @@ async function startAttempt() {
 
 /* END GAME */
 
-function endGame(won) {
+function endGame(won, reason = "time") {
     if (!gameStarted) return;
 
     gameStarted = false;
@@ -156,6 +156,19 @@ function endGame(won) {
             resultMessage.textContent =
                 "คุณจับคู่เครื่องแต่งกายได้ครบทั้งหมดแล้ว!";
         }
+    } else if (reason === "mistakes") {
+        if (resultEyebrow) {
+            resultEyebrow.textContent = "ผิดพลาดเกินกำหนด";
+        }
+
+        if (resultTitle) {
+            resultTitle.textContent = "จบเกม!";
+        }
+
+        if (resultMessage) {
+            resultMessage.textContent =
+                `คุณทำผิดครบ ${MAX_MISTAKES} ครั้งแล้ว จับคู่ได้ ${matchedPairs} จาก ${TOTAL_ITEMS} คู่`;
+        }
     } else {
         if (resultEyebrow) {
             resultEyebrow.textContent = "หมดเวลา";
@@ -167,7 +180,7 @@ function endGame(won) {
 
         if (resultMessage) {
             resultMessage.textContent =
-                `คุณจับคู่ได้ ${matchedPairs} จาก ${TOTAL_ITEMS} คู่ ลองอีกครั้งนะ!`;
+                `หมดเวลา! คุณจับคู่ได้ ${matchedPairs} จาก ${TOTAL_ITEMS} คู่`;
         }
     }
 
@@ -190,6 +203,12 @@ function endGame(won) {
     if (resultsModal) {
         resultsModal.classList.remove("hidden");
     }
+}
+
+const playAgainButton = document.getElementById("next-round-button");
+
+if (playAgainButton) {
+    playAgainButton.addEventListener("click", startAttempt);
 }
 
 startAttempt();

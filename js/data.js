@@ -1,6 +1,10 @@
 const TOTAL_ITEMS = 5;
-const PREVIEW_SECONDS = 5;
+const PREVIEW_SECONDS = 2;
 const GAME_SECONDS = 90;
+const MAX_MISTAKES = 5;
+const WRONG_TIME_PENALTY = 5;
+const WRONG_SCORE_PENALTY = 1;
+const CORRECT_SCORE_REWARD = 1;
 
 const costumeItems = [
     {
