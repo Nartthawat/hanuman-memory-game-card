@@ -28,13 +28,6 @@ const messageElement = document.getElementById("message");
 const introModal = document.getElementById("intro-modal");
 const resultsModal = document.getElementById("results-modal");
 
-const startButton = document.getElementById("start-button");
-const restartButton = document.getElementById("restart-button");
-const modalStartButton = document.getElementById("modal-start-button");
-
-const nextRoundButton = document.getElementById("next-round-button");
-const playAgainButton = document.getElementById("play-again-button");
-
 /* UPDATE DISPLAY */
 
 function updateStats() {
@@ -199,62 +192,4 @@ function endGame(won) {
     }
 }
 
-/* SHOW INTRO */
-
-function showIntro() {
-    gameSession++;
-
-    gameStarted = false;
-    inputLocked = true;
-
-    stopTimer();
-    stopShuffleSound();
-
-    selectedCards = [];
-
-    score = 0;
-    mistakes = 0;
-    matchedPairs = 0;
-    remainingTime = GAME_SECONDS;
-
-    createCards();
-
-    updateStats();
-    updateProgress();
-
-    setStatus("จดจำตำแหน่งไพ่ แล้วจับคู่ให้ถูกต้อง");
-
-    if (resultsModal) {
-        resultsModal.classList.add("hidden");
-    }
-
-    if (introModal) {
-        introModal.classList.remove("hidden");
-    }
-}
-
-/* BUTTON EVENTS */
-
-if (startButton) {
-    startButton.addEventListener("click", startAttempt);
-}
-
-if (restartButton) {
-    restartButton.addEventListener("click", startAttempt);
-}
-
-if (modalStartButton) {
-    modalStartButton.addEventListener("click", startAttempt);
-}
-
-if (nextRoundButton) {
-    nextRoundButton.addEventListener("click", startAttempt);
-}
-
-if (playAgainButton) {
-    playAgainButton.addEventListener("click", startAttempt);
-}
-
-/* INITIALIZE */
-
-showIntro();
+startAttempt();

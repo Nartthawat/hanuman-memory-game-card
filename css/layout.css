@@ -208,14 +208,14 @@
     transition: width 0.3s ease;
 }
 
-/* FOOTER AND BUTTONS */
+/* GAME FOOTER */
 
 .game-footer {
     margin-top: 25px;
 }
 
 #game-hint {
-    margin: 0 0 17px;
+    margin: 0;
     padding: 14px 18px;
     color: var(--text);
     background: var(--card-bg);
@@ -225,56 +225,6 @@
     font-size: 14px;
     line-height: 1.7;
     text-align: center;
-}
-
-.game-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-}
-
-.button {
-    min-height: 47px;
-    padding: 10px 26px;
-    border: 1px solid transparent;
-    border-radius: 9px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-    touch-action: manipulation;
-}
-
-.button:hover {
-    transform: translateY(-2px);
-}
-
-.button:active {
-    transform: translateY(0);
-}
-
-.button-primary {
-    color: #fffaf0;
-    background: var(--accent);
-}
-
-.button-primary:hover {
-    background: var(--accent-hover);
-}
-
-.button-secondary {
-    color: var(--text);
-    background: var(--card-bg);
-    border-color: var(--border);
-}
-
-.button-secondary:hover {
-    background: var(--card-back);
-}
-
-.button-wide {
-    width: 100%;
-    margin-top: 12px;
 }
 
 .page-footer {
@@ -395,16 +345,6 @@
     .game-footer {
         margin: 0;
     }
-
-    .game-buttons {
-        gap: 7px;
-    }
-
-    .button {
-        min-height: 36px;
-        padding: 6px 12px;
-        font-size: 12px;
-    }
 }
 
 /* SHORT PHONE SCREENS */
@@ -421,10 +361,5 @@
 
     .stat {
         padding: 4px 2px;
-    }
-
-    .button {
-        min-height: 31px;
-        padding: 4px 9px;
     }
 }
