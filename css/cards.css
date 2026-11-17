@@ -1,0 +1,232 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    perspective: 1000px;
+}
+
+/* CARD */
+
+.card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 0.72 / 1;
+    cursor: pointer;
+    perspective: 1000px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.card-inner {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 0.45s ease;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card.matched {
+    cursor: default;
+}
+
+.card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* CARD BACK */
+
+.card-back {
+    background:
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 9px,
+            rgba(255, 255, 255, 0.06) 9px,
+            rgba(255, 255, 255, 0.06) 18px
+        ),
+        var(--card-back);
+    color: #f5e8cc;
+}
+
+.card-back::before {
+    content: "✦";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48%;
+    aspect-ratio: 1;
+    border: 2px solid rgba(245, 232, 204, 0.65);
+    border-radius: 50%;
+    font-size: clamp(20px, 4vw, 38px);
+}
+
+/* CARD FRONT */
+
+.card-front {
+    flex-direction: column;
+    gap: 7px;
+    padding: 8px;
+    background: var(--card-bg);
+    color: var(--text);
+    transform: rotateY(180deg);
+}
+
+.card-front img {
+    display: block;
+    width: 100%;
+    height: 75%;
+    object-fit: contain;
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+.card-name {
+    max-width: 100%;
+    color: var(--text);
+    font-size: clamp(12px, 1.5vw, 17px);
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+/* TEXT CARDS */
+
+.card.text-card .card-front {
+    justify-content: center;
+    background: #f4e7ca;
+    color: #593a2c;
+}
+
+.card.text-card .card-name {
+    color: #593a2c;
+    font-family: "Noto Serif Thai", serif;
+    font-size: clamp(17px, 2vw, 25px);
+}
+
+/* MATCHED CARDS */
+
+.card.matched .card-front {
+    border-color: var(--green);
+    box-shadow: inset 0 0 0 2px var(--green);
+}
+
+.card.matched .card-front::after {
+    content: "✓";
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 23px;
+    height: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: var(--green);
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* WRONG ANSWER */
+
+.card.wrong .card-front {
+    border-color: #d34d37;
+    animation: wrongShake 0.35s ease;
+}
+
+@keyframes wrongShake {
+    0%, 100% {
+        transform: rotateY(180deg) translateX(0);
+    }
+
+    25% {
+        transform: rotateY(180deg) translateX(-4px);
+    }
+
+    75% {
+        transform: rotateY(180deg) translateX(4px);
+    }
+}
+
+/* DISABLED CARD */
+
+.card.disabled {
+    pointer-events: none;
+}
+
+/* TABLET */
+
+@media (min-width: 651px) and (max-width: 900px) {
+    .grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .card {
+        aspect-ratio: 0.72 / 1;
+    }
+
+    .card-face {
+        border-radius: 9px;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+    .grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 5px;
+    }
+
+    .card {
+        aspect-ratio: 0.62 / 1;
+    }
+
+    .card-face {
+        border-width: 1px;
+        border-radius: 6px;
+    }
+
+    .card-front {
+        gap: 3px;
+        padding: 3px;
+    }
+
+    .card-front img {
+        height: 70%;
+    }
+
+    .card-name {
+        font-size: clamp(9px, 2.5vw, 12px);
+        line-height: 1.25;
+    }
+
+    .card.text-card .card-name {
+        font-size: clamp(11px, 3vw, 16px);
+    }
+
+    .card.matched .card-front::after {
+        top: 3px;
+        right: 3px;
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+    }
+
+    .card-back::before {
+        font-size: 20px;
+    }
+}
